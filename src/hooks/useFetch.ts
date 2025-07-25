@@ -1,38 +1,61 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-interface FetchOptions {
-  headers?: Record<string, string>;
-}
+type GithubUser = {
+  login: string;
+  avatar_url: string;
+  name?: string;
+  bio?: string;
+  followers: number;
+  following: number;
+  html_url: string;
+  public_repos: number;
+};
 
-export const useFetch = <T>(url: string, options?: FetchOptions) => {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+const token = import.meta.env.VITE_GITHUB_TOKEN;
 
-  const fetchData = useCallback(async () => {
-    if (!url) return;
+export const useFetchGithubProfile = (username: string) => {
+  const [data, setData] = useState<GithubUser | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    setLoading(true);
-    setError(null);
-    setData(null);
+  const fetchData = async () => {
+    if (!username.trim()) {
+      setData(null);
+      setError(null);
+      return;
+    }
 
     try {
-      const res = await fetch(url, {
-        headers: options?.headers || {},
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch(`https://api.github.com/users/${username}`, {
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
       });
-      if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
-      const json = await res.json();
-      setData(json);
-    } catch (err) {
-      setError(err as Error);
+
+      if (!response.ok) {
+        throw new Error(
+          response.status === 404
+            ? "User not found"
+            : `GitHub API error: ${response.statusText}`
+        );
+      }
+
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An error occurred");
+      setData(null);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }, [url, options?.headers]);
+  };
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [username]);
 
-  return { data, loading, error, refetch: fetchData };
+  return { data, error, isLoading, refetch: fetchData };
 };
