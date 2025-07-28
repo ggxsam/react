@@ -28,3 +28,28 @@ Then we built a login form that:
 - Validates data with Zod (email must be email, password required)
 - Shows error messages when user types wrong things
 - Only loads form component when user clicks login (lazy loading)
+
+## 28th July
+
+We learned about TanStack Query for better API calls!
+
+**TanStack Query Provider** - Setup to manage all our API calls in one place  
+**useQuery** - Easy way to GET data from backend (like fetching user list)  
+**useMutation** - Easy way to POST/PUT/DELETE data to backend (like creating new user)  
+**Custom Hooks** - Made our own hooks using useQuery and useMutation for reusability  
+**Frontend-Backend Connection** - Connected our React app to real backend API
+
+### What we built
+
+### Core Components
+
+1. **API Services** (`auth.ts`) - `registerUser`, `loginUser`, `getUsers` functions
+2. **TypeScript Types** (`auth.types.ts`) - Complete type definitions for auth flow
+3. **React Query Hooks** - `use-register`, `use-login`, `use-get-users` for data management
+
+
+## API Endpoints
+
+- `POST /api/user/register` - User registration
+- `POST /api/user/login` - User authentication
+- `GET /api/user/getusers` - Fetch all users
