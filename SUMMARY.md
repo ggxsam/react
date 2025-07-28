@@ -29,7 +29,7 @@ Then we built a login form that:
 - Shows error messages when user types wrong things
 - Only loads form component when user clicks login (lazy loading)
 
-## 28th July
+## 27th July
 
 We learned about TanStack Query for better API calls!
 
