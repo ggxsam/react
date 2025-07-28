@@ -47,9 +47,26 @@ We learned about TanStack Query for better API calls!
 2. **TypeScript Types** (`auth.types.ts`) - Complete type definitions for auth flow
 3. **React Query Hooks** - `use-register`, `use-login`, `use-get-users` for data management
 
-
 ## API Endpoints
 
 - `POST /api/user/register` - User registration
 - `POST /api/user/login` - User authentication
 - `GET /api/user/getusers` - Fetch all users
+
+## 28th July
+
+We learned about Redux for state management!
+
+**Redux Store** - Central place to store all app data  
+**Redux Slice** - Easy way to create actions and reducers together  
+**useSelector** - Get data from Redux store  
+**useDispatch** - Send actions to update Redux store  
+**Actions** - What we want to do (like increment, updateName)
+
+Then we built Redux integration that:
+
+- Created counter with increment/decrement using Redux
+- Made contact form that stores data in Redux store
+- Used useSelector to read form data from store
+- Used useDispatch to update form fields in real-time
+- Combined Redux with our existing React components

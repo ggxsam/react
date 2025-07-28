@@ -1,21 +1,19 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import UseCallback from './components/CallBackComponent';
 import FallbackComponent from './components/FallBackComponent';
-import GitHubProfile from './components/githubProfile';
-import UseMemo from './components/MemoComponent';
-import ThemeComponent from './components/ThemeComponent';
 import { ThemeContextProvider } from './context/ThemeProvider';
+import Form from './features/form/form';
 
 const App = () => {
   return (
     <div>
       <ThemeContextProvider>
-
-          {/* <UseMemo /> */}
+        {/* <Counter /> */}
+        <Form />
+        {/* <UseMemo /> */}
         {/* <ThemeComponent /> */}
         <ErrorBoundary FallbackComponent={FallbackComponent} onReset={() => window.location.reload()}>
           {/* <UseCallback /> */}
-        <GitHubProfile />
+          {/* <GitHubProfile /> */}
         </ErrorBoundary>
       </ThemeContextProvider>
     </div>
